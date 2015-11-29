@@ -4,17 +4,20 @@
 
 #define STATE_PIN 12
 
+// WiFi-Config
 char* ssid     = "ssid";
 char* password = "passphrase";
 char* broker   = "broker_adress/hostname";
 int port       = 1883;
 
+// Service-Config
 char* apiKey = "internal_api_key";
 char* httpHost = "http_requests_host";
 
 Espanol denada(ssid, password, broker, port, callback);
 
-int state = 0;
+// Variables
+bool state = false;
 
 void callback(char* topic, byte* payload, unsigned int length)
 {
@@ -28,12 +31,16 @@ void setup()
 
     delay(50);
 
-    state = digitalRead(STATE_PIN);
+    state = digitalRead(STATE_PIN) == HIGH;
 }
 
 void loop()
 {
-    int newState = digitalRead(STATE_PIN);
+    // Integrate debouncing
+    bool stateRead1 = digitalRead(STATE_PIN) == HIGH;
+    delay(20);
+    bool stateRead2 = digitalRead(STATE_PIN) == HIGH;
+    bool newState = stateRead1 && stateRead2;
 
     if (newState != state)
     {
