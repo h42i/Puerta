@@ -7,7 +7,7 @@
 // WiFi-Config
 const String ssid     = "HaSi-Kein-Internet-Legacy";
 const String password = "";
-const String broker   = "atuin";
+const String broker   = "mqtt.hasi";
 int port       = 1883;
 
 // Service-Config
@@ -78,4 +78,3 @@ void loop()
 
     Espanol.loop();
 }
-
