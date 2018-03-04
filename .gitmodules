@@ -1,0 +1,3 @@
+[submodule "lib/Espanol"]
+	path = lib/Espanol
+	url = https://github.com/misterdanb/Espanol.git

@@ -5,16 +5,14 @@
 #define STATE_PIN 12
 
 // WiFi-Config
-char* ssid     = "ssid";
-char* password = "passphrase";
-char* broker   = "broker_adress/hostname";
+const String ssid     = "HaSi-Kein-Internet-Legacy";
+const String password = "";
+const String broker   = "atuin";
 int port       = 1883;
 
 // Service-Config
-char* apiKey = "internal_api_key";
-char* httpHost = "http_requests_host";
-
-Espanol denada(ssid, password, broker, port, callback);
+const String apiKey = "";
+const String httpHost = "status.hasi.it";
 
 // Variables
 bool state = false;
@@ -32,6 +30,9 @@ void setup()
     delay(50);
 
     state = digitalRead(STATE_PIN) == HIGH;
+
+    Espanol.setDebug(true);
+    Espanol.begin(ssid, password, "raumstatus", broker, port);
 }
 
 void loop()
@@ -48,11 +49,11 @@ void loop()
 
         if (!state)
         {
-            denada.publish("hasi/state", "open");
+            Espanol.publish("hasi/state", "open");
         }
         else
         {
-            denada.publish("hasi/state", "closed");
+            Espanol.publish("hasi/state", "closed");
         }
 
         WiFiClient client;
@@ -75,6 +76,6 @@ void loop()
 
     delay(0);
 
-    denada.loop();
+    Espanol.loop();
 }
 
